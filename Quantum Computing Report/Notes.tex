@@ -1,14 +1,10 @@
 \documentclass{article}
 
-% If you're new to LaTeX, here's some short tutorials:
-% https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes
-% https://en.wikibooks.org/wiki/LaTeX/Basics
-
 % Formatting
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage[titletoc,title]{appendix}
-
+\usepackage{bm}
 % Math
 % https://www.overleaf.com/learn/latex/Mathematical_expressions
 % https://en.wikibooks.org/wiki/LaTeX/Mathematics
@@ -42,6 +38,7 @@
 \addbibresource{references.bib}
 
 \usepackage{tikz}
+
 \usepackage{tkz-euclide}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{decorations.markings}
@@ -268,9 +265,9 @@ We'll focus mainly on the cloud offering here, as they're likely to be most rele
 \begin{itemize}
     \item \textbf{Microsoft Azure Quantum}. Already available internally through Microsoft Azure, this give access to trapped ion providers like Honeywell and IonQ as well as optimisation through 1Qloud and Microsoft's algorithms on quantum annealers. IonQ also provides a free quantum simulator. Microsoft has developed a quantum computing language Q\#, so will require an amount of training to use, but claims to have Python integration in the works. 
     \item \textbf{IBM Quantum Experience}. IBM's quantum computers are only available via their own site and while outwardly targeted more towards researchers and educators than industrial uses, they have their own partner programme. If you want to tinker with quantum computing in your free time, I'd highly recommend taking a look. You have free access to a number of 5 qubit devices as well as simulators. IBM uses Qiskit, a specifically developed Python library,
-    \item \textbf{Amazon Braket}. Another cloud computing option, available through AWS. This gives access to Rigetti's Aspen 9 superconducting computer, IonQ's trapped ion computer and D-Wave's quantum annealers. Amazon provide Amazon Braket SDK, a Python library, and their notebooks come integrated with Pennylane - useful for quantum machine learning. 
+    \item \textbf{Amazon Braket}. Another cloud computing option, available through AWS. This gives access to Rigetti's Aspen 9 superconducting computer, IonQ's trapped ion computer and D-Wave's quantum annealers. Amazon provide Amazon Braket SDK, a Python library, and their notebooks come integrated with PennyLane - useful for quantum machine learning. 
     \item \textbf{Google Quantum Computing Service}. Much like IBM, this is another service requiring approval before you can use their high-end machines. Google's computers use superconducting qubits, with software integration provided by Cirq. Cirq is an open source Python library, which also offers integration with IonQ, AQT, Pasqal and Rigetti devices. 
-    \item \textbf{Xanadu}. Another cloud computing offering, but with access to multiple photonic quantum computers. Python and Pennylane integration will be used for controlling the computers, and they recommend using Strawberry Fields, a Python Library with pre-built quantum algorithms as well as simulators - so you can get started without access to Xanadu's computers.  
+    \item \textbf{Xanadu}. Another cloud computing offering, but with access to multiple photonic quantum computers. Python and PennyLane integration will be used for controlling the computers, and they recommend using Strawberry Fields, a Python Library with pre-built quantum algorithms as well as simulators - so you can get started without access to Xanadu's computers.  
     \item \textbf{Leap}. D-wave also offers access via the cloud to its quantum computers and also has its own SDK available via Python called Ocean. This provides access to their 2000 qubit quantum annealer, so while has potential for quantum chemistry, is unlikely to be as much use for quantum machine learning.
     \item \textbf{Oxford Quantum Circuits}. A relatively new development in the UK. Access is available through enquiry only, and no information is given about the hardware (other than they use superconducting qubits) or the software used. 
 \end{itemize}
@@ -450,7 +447,7 @@ It's important that we are using random circuits rather than bench-marking using
 
 
 \section{Quantum Embeddings}
-Quantum embedding is the process of converting classical data points into quantum states, i.e. a feature map. There are several methods we can use to achieve this, each one giving rise to a corresponding kernel. Note that these embeddings (and more) are all available via the Pennylane Python library.
+Quantum embedding is the process of converting classical data points into quantum states, i.e. a feature map. There are several methods we can use to achieve this, each one giving rise to a corresponding kernel. Note that these embeddings (and more) are all available via the PennyLane Python library.
 
 \begin{itemize}
     \item \textbf{Basis Encoding} - If we are given binary inputs, we can encode strings directly into state vectors e.g.
@@ -715,14 +712,14 @@ such that the cost function $C(\ket{\psi}) = \bra{\Psi} H \ket{\Psi}$ is a faith
     \label{fig:my_label}
 \end{figure}
 
-We then train an optimiser on a set of data using either parameter-shift \cite{crooks2019gradients} or backpropagation \cite{watabe2019quantum}.
+We then train an optimiser on a set of data using either parameter-shift \cite{crooks2019gradients} or backpropagation \cite{watabe2019quantum}. Note that backpropagation is only possible via simulators.
 
 %\section{Quantum Annealing}
 %In the space of optimisation solutions, quantum also offers an annealing solution. Classical annealing is based on the idea of slowly cooling a system down
 
 
 \section{Existing Examples}
-Pennylane has a number of tutorials for quantum machine learning examples. This mostly follows \\ \verb|https://pennylane.ai/qml/demos/tutorial_ensemble_multi_qpu.html|, an ensemble method, classifying data from the Iris dataset. Two classifiers have been pre-trained on quantum circuits, so this is verification of parameters rather than hyper-parameter tuning. Two computations are run in parallel on quantum computers, and three qubits are measured in the computational basis. For every measurement taking value 0 we, assign it 1, and for every measurement taking value 1, we assign it -1. We then average over all such measurements,  and rescale to obtain classification probabilities. For a given piece of data, we assign the class that has the highest probability from either of the two circuits, i.e. the circuit that is most certain, picks the class. 
+PennyLane has a number of tutorials for quantum machine learning examples. This mostly follows \\ \verb|https://pennylane.ai/qml/demos/tutorial_ensemble_multi_qpu.html|, an ensemble method, classifying data from the Iris dataset. Two classifiers have been pre-trained on quantum circuits, so this is verification of parameters rather than hyper-parameter tuning. Two computations are run in parallel on quantum computers, and three qubits are measured in the computational basis. For every measurement taking value 0 we, assign it 1, and for every measurement taking value 1, we assign it -1. We then average over all such measurements,  and rescale to obtain classification probabilities. For a given piece of data, we assign the class that has the highest probability from either of the two circuits, i.e. the circuit that is most certain, picks the class. 
 
 Both circuits use product encoding, with a rotation around the x-axis of the Bloch sphere.
 
@@ -779,6 +776,126 @@ R(\phi, \theta, \omega) = R_z(\omega)R_y(\theta)R_z(\phi) = \begin{pmatrix} e^{-
 
 \clearpage
 \part{Software Implementation}
+We now have a chance to look at some code for quantum computing, and implement a genuinely novel example.
+\section{The Dataset}
+The dataset we're considering is the protac database, available \cite{10.1093/nar/gkaa807}. Our aim is to produce two relevant examples from this - classification and regression. 
+
+\begin{table}[htb]
+\begin{tabular}[scale=0.5]{lllllllllll}
+DC50 (nM) & Molecular Weight & Exact Mass & logP & logS  & Heavy Atom Count & Ring Count & Hydrogen Bond Acceptor Count & Hydrogen Bond Donor Count & Rotatable Bond Count & Topological Polar Surface Area \\
+96.9      & 991.015          & 990.3935   & 3.53 & -5.02 & 71               & 7          & 17                           & 4                         & 27                   & 267.43                         \\
+11.9      & 787.834          & 787.3078   & 3.25 & -5.04 & 58               & 8          & 14                           & 3                         & 14                   & 213.2                          \\
+276.5     & 1039.686         & 1038.376   & 4.25 & -5    & 72               & 8          & 17                           & 4                         & 19                   & 232.97                         \\
+6.3       & 912.965          & 912.3667   & 3.4  & -4.89 & 67               & 9          & 18                           & 3                         & 19                   & 253.14                         \\
+700       & 832.988          & 832.3479   & 3.56 & -4.58 & 60               & 7          & 13                           & 5                         & 15                   & 208.98                        
+\end{tabular}
+\end{table}
+
+\section{Classification}
+The classification algorithm, we are going to use, is based on a variational quantum circuit using the PennyLane library \cite{bergholm2020pennylane} in Python. The circuit functions similarly to an encoder for a classical neural network. Simply scale our input data to the interval $[-\pi, \pi]$, encode each feature as $R_X(x_i), i \in \{1, 2, \ldots, 10\}$, perform the variational circuit and put the circuit measurements into a threshold function.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics{Circuit15.jpg}
+    \caption{Circuit 15 \cite{Sim_2019}}
+    \label{fig:circuit15}
+\end{figure}
+Generating the circuit is fairly straightforward, but requires a generalisation to 10 qubits (or more) instead of 4.
+
+\begin{minted}{python}
+import pennylane as qml
+
+def circuit15(params,x):
+    n = x.size
+# Requires 2n parameters, index keeps track of current parameter
+    index = 0
+# RY block
+    for i in range(n):
+        qml.RY(params[index], wires=i)
+        index += 1
+
+# CNOT ring
+    qml.CNOT(wires=[n-1,0])
+    index += 1
+    for i in range(n-1):
+        qml.CNOT(wires=[n-2-i,n-1-i])
+        index +=1        
+
+# RY block
+    for i in range(n):
+        qml.RY(params[index], wires=i)
+        index += 1
+        
+# CNOT ring
+    qml.CNOT(wires=[n-1,n-2])
+    index += 1
+    qml.CNOT(wires=[0,n-1])
+    index += 1
+    
+    for i in range(n-2):
+        qml.CNOT(wires=[i+1,i])
+        index +=1
+    
+    measurements = [qml.expval(qml.PauliZ(i)) for i in range(n)]
+    return measurements
+\end{minted}
+Note that the difference between this circuit and the one implemented in the model example is simply the inclusion of the angle embedding term. 
+\begin{minted}{python}
+def circuit15(params,x):
+    n = x.size
+    qml.templates.AngleEmbedding(x,wires=[i for i in range(n)]) 
+    ...
+\end{minted}
+The classifier in this case is simply a linear model with a sigmoid function. The sigmoid function returns a value between 0 and 1, so we take the model to classify 0 as the output $\sigma(y \cdot \bm{\beta}  + \beta_0 ) \le 0.5$.
+
+\begin{minted}{python}
+def classifier(var,x,circuitNum=5):
+# Pick the quantum device we're running the circuit on.
+    dev = qml.device("default.qubit", wires=x.size)
+    circuit = qml.QNode(circuit15,dev)
+# Run the circuit
+    measurements = circuit(var,x)
+# Activation function
+    lin_model = np.inner(measurements,var[-11:-1]) + var[-1] 
+    sig = 1 / (1 + np.exp((-1)*lin_model))
+
+    return sig
+\end{minted}
+
+Now for the optimisation. Since our circuit is composed of $R_y$ and CNOT gates, we can only optimise the $R_y$ gates. Hence we have 20 parameters (the angle of rotation about the y axis of the Bloch sphere) that we can optimise in the circuit, and 11 parameters corresponding to the linear combination of measurements.
+
+PennyLane provides a range of optimisers - some specifically NumPy optimisers that have been altered to work with quantum circuits, and some purely quantum options. We've chosen to use the Adam optimiser. The default option is to use back-propagation to compute derivatives, which is both space and time saving - but not possible on a quantum device. Thus, we have to use a simulator instead of a quantum computer. We could instead use the parameter-shift method, which works on all quantum computers, but also must incur an additional cost per data per shot. Note that the cost function we're using here is the squared loss function and not the log loss function because this appeared to give us better results. 
+
+\begin{minted}{python}
+np.random.seed(32)
+var_init = (0.1*np.random.randn(parameterNum))
+var= var_init 
+
+batch_size = 20
+for it in range(19):
+    # Update the weights by one optimizer step
+
+    X_train_batch = XTrain[it*batch_size:(it +1)*batch_size]
+    y_train_batch = yTrain[it*batch_size:(it +1)*batch_size]
+    var = opt.step(lambda v: cost(v, X_train_batch, y_train_batch,circuitNum), var)
+\end{minted}
+
+A very simple run of this circuit with a $4:1$ split of training:test data and no cross validation gives us an accuracy of 80\% and an f1 score of 0.095 on our test data. A simple implementation of a classical method
+
+
+\section{Notes}
+This is a selection of observations from working with PennyLane.
+\begin{itemize}
+    \item When defining circuits via functions, you cannot specify the size of the circuit within the function variables. Consider the following circuit that should embed the data onto \textit{numWires} qubits, apply a Hadamard gate to each qubit and return the expected outcome of a measurement in the Z direction. 
+    \begin{minted}{python}
+    def circuit(x, numWires):
+        dev = qml.device("qubit.default", wires=numWires)
+        qml.templates.AngleEmbedding(x,wires=[i for i in range(numWires)])
+        qml.broadcast(qml.Hadamard,[i for i in range(numWires)], "single")
+        return [qml.expval(qml.PauliZ(i)) for i in range(numWires)]
+    \end{minted}
+    
+\end{itemize}
 
 \clearpage
 \printbibliography

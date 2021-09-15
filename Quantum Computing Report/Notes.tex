@@ -110,10 +110,12 @@
 
 
 
-\author{Joseph Tedds - joseph.tedds@astrazeneca.com \\
+\author{Joseph Tedds - jt667@cantab.ac.uk \\
  Domingo Salazar - domingo.salazar@astrazeneca.com}
 
 %\date{29/07/20}
+
+\usepackage{hyperref}
 
 \begin{document}
 \maketitle
@@ -132,12 +134,12 @@ The 21st century has brought us into a quantum revolution, much like the digital
 
 What recent advances makes us think that quantum computing could be useful to AstraZeneca? 
 \begin{itemize}
-    \item \textbf{Shor's Algorithm} \cite{Shor_1997} appearing in 1994 was arguably the beginning of quantum hype. This provides an exponential speed-up in factoring large numbers and computing discrete logarithms. Both of these problems are important in cryptography as they provide security for a number of protocols still in use today, e.g. RSA.
+    \item \textbf{Shor's Algorithm} \cite{Shor_1997} appearing in 1994 was arguably the beginning of quantum hype. This provides an \textbf{exponential speed-up} in factoring large numbers and computing discrete logarithms. Both of these problems are important in cryptography as they provide security for a number of protocols still in use today, e.g. RSA.
     \item Preskill \cite{preskill2012quantum} defines \textbf{quantum supremacy} to be '\textit{when we will be able to perform tasks with controlled quantum systems going beyond what can be achieved with ordinary digital computers.}' In 2019, Google claimed to have achieved this \cite{quantum_supremacy}, which was shortly refuted by IBM \cite{ibm_refute} in a blog post maintaining that the calculation could be performed in $2 \frac{1}{2}$ days on a classical supercomputer. Whatever your opinion on the authenticity of this claim, this was definitely a landmark moment.
-    \item With many high profile companies now competing in the hardware space: Google, IBM, Rigetti, large breakthroughs are being made in the numbers of qubits available and error rates. With a wide variety of approaches, companies expect to break the \textbf{threshold of 1000 qubits} some time in the next four years. 
+    \item With many high profile companies now competing in the hardware space: \textbf{Google, IBM, Rigetti}, large breakthroughs are being made in the numbers of qubits available and error rates. With a wide variety of approaches, companies expect to break the \textbf{threshold of 1000 qubits} some time in the \textbf{next four years}. 
     \item An increasing number of companies are also providing access to quantum computers \textbf{via the cloud}. AstraZeneca already has access Microsoft Azure Quantum, but Amazon, IBM, Google, D-Wave and Oxford Quantum Circuits all have offerings.
     \item Very recent research by IBM \cite{Liu_2021} shows a \textbf{theoretical quantum advantage} for machine learning problems given classical input. This is important since most existing quantum advantage relied on the input of quantum data, or classical data already existing in a 'nice' quantum form. 
-    \item  No universal software exists for quantum computers, just many Python libraries and one new Quantum Language, Q\#. 
+    \item  No universal software exists for quantum computers, just many \textbf{Python libraries} and one new Quantum Language, Q\#. 
 \end{itemize}
 
 What challenges does quantum computing face in providing practical quantum computers and usage? A by no means exhaustive list, can be broken down into three areas, with the challenges needing to be addressed by different areas of the industry. 
@@ -153,7 +155,6 @@ What challenges does quantum computing face in providing practical quantum compu
     \item Software:
     \begin{itemize}
         \item Educating programmers on available software and algorithms.
-        
         \item Quantum computing theory outpaces current hardware, requiring clarity over what algorithms can be run on what devices.
     \end{itemize}
     \item Uptake:
@@ -176,15 +177,15 @@ In this section, we discuss the current state of quantum computing, building up 
 \section{The Basics of Quantum Computing}
 Quantum computing is built on linear algebra, there's no way of getting around it entirely, but we'll do the best we can. If you're interested in the more rigorous treatment, we'll revisit the basics in Part II.
 
-In classical computing, the most basic element is a bit, taking the value either 0 or 1. We can add them together, combine them into strings and use classical gates to transform bit strings. In quantum computing, we'd like to build on these ideas, but also introduce the key quantum properties of \textbf{superposition} and \textbf{entanglement}.
+In classical computing, the most basic element is a bit, taking the value either 0 or 1. We can add them together, combine them into strings and use classical gates (e.g. AND, OR, NOT) to transform bit strings. In quantum computing, we'd like to build on these ideas, but also introduce the key quantum properties of \textbf{superposition} and \textbf{entanglement}.
 
 In quantum computing, the most basic element is a qubit, which when measured will give the value 0 or 1. It's easier to consider a classical example first. Think of spinning a coin on its edge, at this stage it doesn't have the value heads or tails, we can only talk about the probability that it lands heads or tails. Measurement, in the form of stopping the coin, collapses the superposition and allows us to read an outcome as either heads or tails. It's exactly the same with qubits. Before we measure a qubit, they can be in a \textbf{superposition} of the states 0 and 1 and measurement causes the superposition to collapse and gives an outcome of 0 or 1 (with a probability depending on the preparation of the state).
 
 Moving onto \textbf{entanglement}, we now need to consider multiple linked coins. The simplest example is two linked coins. We spin two coins and when we measure one, the other coin becomes fixed to the same value, i.e. we always obtain either head, head or tails, tails. Entanglement is not dependent on distance, so you can create entangled qubits and separate them. In 2017, Chinese scientists successfully maintained entanglement across 1200 km \cite{Yin1140}. 
 
-Quantum entanglement is necessary for quantum advantage, as any calculations without entanglement can be efficiently simulated by a classical computer. 
+Quantum \textbf{entanglement is necessary for quantum advantage}, as any calculations without entanglement can be efficiently simulated by a classical computer. 
 
-Typically, we model classical computing as a series of logic gates. In quantum computing, we have a similar circuit model that uses quantum gates, but with the caveat that they must be reversible. 
+At a very basic level, we model classical computing as a series of logic gates. In quantum computing, we have a similar circuit model that uses quantum gates, but with the caveat that they must be reversible. Currently, our quantum algorithms are based entirely on these circuit models, but as our hardware expertise increases, we'll be able to build algorithms without directly manipulating these gates.
 
 
 \section{What makes a good quantum computer?}
@@ -244,15 +245,15 @@ As we can see in the figure above, the Rigetti Aspen-4 has the highest number of
 Grumbling and Horowitz \cite{NAP25196} broadly define 3 different types of quantum computer. 
 \begin{itemize}
     \item \textbf{Analogue Quantum Computers} - quantum computers where the dynamics of the system we use for computing is similar to the model we wish to study. We are unable to manipulate the individual steps, quantum gates, directly and can only make analogue changes to the dynamics of the quantum system. For instance, a \textbf{quantum annealer} prepares an initial state for a simple Hamiltonian and the Hamiltonian is slowly altered until it becomes the problem Hamiltonian. Since the ground state will sit in the minimum energy state, we hope to find a minimal energy solution as our final state, though there is a non-zero probability that this is an excited state. These computers are useful for sampling and optimization problems, but have problems with thermal noise and running the system too quickly can introduce errors. Note that there do exist some examples of protein folding on 2-D and 3-D lattices \cite{perdomoortiz2012finding}, \cite{babej2018coarsegrained}. 
-    \item \textbf{Noisy Intermediate Scale Quantum computers (NISQ)} - these are the digital quantum computers we currently work with. These are characterised as digital, since we can manipulate the qubits via quantum gates that allow us to complete any theoretical computation. However, our current implementations are very noisy (as the name suggests) so we can't run thousands of gates without creating large errors, and we're restricted in the number of qubits we can access.
-    \item \textbf{Fault Tolerant Quantum Computer (FTQC)} - Digital quantum computers using logical qubits. This is the end goal of quantum computing. Since the gate-based calculations are now error free (up to an arbitrary amount) we would be able to complete algorithms of increased complexity and depth, hence utilise the full power of quantum computing.
+    \item \textbf{Noisy Intermediate Scale Quantum computers (NISQ)} - these are the digital quantum computers we currently work with. These are characterised as digital, since we can manipulate the qubits via quantum gates that allow us to complete \textbf{any theoretical computation}. However, our current implementations are very noisy (as the name suggests) so we can't run thousands of gates without creating large errors, and we're restricted in the number of qubits we can access.
+    \item \textbf{Fault Tolerant Quantum Computer (FTQC)} - Digital quantum computers using logical qubits. This is the end goal of quantum computing. Since the gate-based calculations are now \textbf{error free} (up to an arbitrary amount) we would be able to complete algorithms of increased complexity and depth, hence utilise the full power of quantum computing.
 \end{itemize}
 
 \section{Physical Realisations}
 There are quite a few different methods to construct a quantum computer. We will very briefly discuss only a few of the more widely used types within NISQ computers.
 
 \begin{itemize}
-    \item \textbf{Superconducting quantum computers} are under development by companies like Google, IBM, Rigetti and D-Wave. The quantum system is formed by small current on a chip that quantum tunnels through a Josephson Junction. These circuits are typically 2-D, but Oxford Quantum Circuits has recently announced their 3-D circuits. The qubits are realised as charge distributions, the flux of the current, or a hybrid approach. Since these are essentially microchips, similar manufacturing techniques can be used to create them, so they are very scalable. However, the superconductivity needs the chip to be cooled to below 100 mK which is both energy and space intensive. Difficulty will also come when the system is scaled up to thousands of qubits, when multiple cooling systems may be required. While the decoherence time for the qubits is typically very fast, in the order of $10 \, \mu \text{s}$, gate application times are low enough to implement 
+    \item \textbf{Superconducting quantum computers} are under development by companies like Google, IBM, Rigetti and D-Wave. The quantum system is formed by small current on a chip that quantum tunnels through a Josephson Junction. These circuits are typically 2-D, but Oxford Quantum Circuits has recently announced their 3-D circuits. The qubits are realised as charge distributions, the flux of the current, or a hybrid approach. Since these are essentially microchips, similar manufacturing techniques can be used to create them, so they are very scalable. However, the superconductivity needs the chip to be cooled to below 100 mK which is both energy and space intensive. Difficulty will also come when the system is scaled up to thousands of qubits, when multiple cooling systems may be required. While the decoherence time for the qubits is typically very fast, in the order of $10 \, \mu \text{s}$, gate application times are low enough to implement many before the qubit would decohere naturally. Gate errors are thus the dominating source of error here.
     \item \textbf{Trapped ion computers}. Honeywell and IonQ are the leaders in this field. The quantum system is formed by the movement of the ions suspended in electromagnetic fields, with entanglement created via lasers. Ion traps typically have longer decoherence times that superconducting qubits, and allow for greater connectivity (number of nearby qubits that can interact). However, the speed at which they operate can be quite slow and adding qubits becomes more difficult due to unwanted interactions between neighbouring ions. Furthermore, cooling is also required to below 2K, which although low requires far less energy than the superconducting qubits. The records for quantum volume, another metric for comparing quantum computers, has consistently been held and improved upon by Honeywell.
     \item \textbf{Photonic quantum computers} are light based, relying on the polarisation of light, the frequency of light or a combination of the two. These can be operated at room temperature and have long decoherence times - in the order of seconds. However, the equipment required often takes up far more space than the chips for superconducting qubits or trapped ion manipulation. Xanadu is one of the leaders in this field, having multiple cloud accessible quantum computers. PsiQuantum claim to have a method to allow miniaturisation of the chips, and are working towards building a computer with over a million qubits in the next four years. 
     \item \textbf{Topological quantum computing} is the least popular and so far least successful method, having no known successful implementations. Microsoft were the main proponents of this method, relying on the properties of a Majorana fermion, but their observations were later shown to be inconclusive, so little progress has been made. The principles are based on the paths of specific quasi-particles known as anyons. Since their paths are unable to cross, they form braids by winding themselves around each other. The quantum state of the system of anyons depends entirely on the topology of their trajectories. This means that noise that causing small errors in the trajectories won't cause errors. Microsoft claimed that this approach would have little to no downside, and the low error rate should allow for a low logical qubit to physical qubit ratio. 
@@ -293,15 +294,12 @@ As an emerging technology, quantum computing naturally has some barriers to entr
 
 \begin{itemize}
     \item Costs - New technology is always expensive, and quantum computers are very definitely still in the development phase. Superconducting qubits and ion traps need energy to cool the computer to extreme temperatures, and hardware costs are in the millions of dollars to outright buy quantum computers. 
-    \item Skills - Quantum computers are only as valuable as the people who can use them. Since much of the hardware is controlled via Python, software engineers, developers etc. should be able to transition fairly comfortably. There are also more courses in quantum computing being offered at universities world-wide and a number of free cloud based services offering tutorials and introduction. 
+    \item Skills - Quantum computers are only as valuable as the people who can use them. Since much of the hardware is controlled via Python, software engineers, developers etc. should be able to transition fairly comfortably. There are also more courses in quantum computing being offered at universities world-wide and a number of free cloud based services offering tutorials and introduction. There is only one quantum developer certification available, offered by IBM for Qiskit based development.
     \item Access to quantum computers - Since quantum hardware is rapidly changing, access to a variety of different computers is necessary as new algorithms become feasible. For the cost and skill reasons outlined above, however, it seems inefficient for companies to own quantum computers unless they are actively developing hardware. Cloud based quantum computing seems to be the current solution until the computers are advanced enough to mean owning one is enough to complete a wide variety of tasks. Although, it may become practical to own a quantum annealer, e.g. for protein folding, earlier than owning a NISQ computer for machine learning. 
     \item Understanding the use cases - With many papers and hardware developments, it's difficult to keep track of what is achievable and on what machines. For example, many quantum computing algorithms like principal component analysis make use of quantum RAM - hardware that is not yet available. Typically, many companies like D-wave and Microsoft have case studies to help gauge feasibility of current options. 
     \end{itemize}
 
 \section{Timelines}
-This section needs more detail, but may not be apparent what until we've done some programming.
-
-
 There are many ways we can track progress in quantum computing. For instance, the number of physical or logical qubits, quantum volume, error rate, decoherence time. For the most part, quantum volume and qubit numbers tend to be the most widely tracked metrics. 
 
 \begin{table}[htb]
@@ -714,12 +712,9 @@ such that the cost function $C(\ket{\psi}) = \bra{\Psi} H \ket{\Psi}$ is a faith
 
 We then train an optimiser on a set of data using either parameter-shift \cite{crooks2019gradients} or backpropagation \cite{watabe2019quantum}. Note that backpropagation is only possible via simulators.
 
-%\section{Quantum Annealing}
-%In the space of optimisation solutions, quantum also offers an annealing solution. Classical annealing is based on the idea of slowly cooling a system down
-
 
 \section{Existing Examples}
-PennyLane has a number of tutorials for quantum machine learning examples. This mostly follows \\ \verb|https://pennylane.ai/qml/demos/tutorial_ensemble_multi_qpu.html|, an ensemble method, classifying data from the Iris dataset. Two classifiers have been pre-trained on quantum circuits, so this is verification of parameters rather than hyper-parameter tuning. Two computations are run in parallel on quantum computers, and three qubits are measured in the computational basis. For every measurement taking value 0 we, assign it 1, and for every measurement taking value 1, we assign it -1. We then average over all such measurements,  and rescale to obtain classification probabilities. For a given piece of data, we assign the class that has the highest probability from either of the two circuits, i.e. the circuit that is most certain, picks the class. 
+PennyLane has a number of tutorials for quantum machine learning examples. This mostly follows \\ \url{https://pennylane.ai/qml/demos/tutorial_ensemble_multi_qpu.html}, an ensemble method, classifying data from the Iris dataset. Two classifiers have been pre-trained on quantum circuits, so this is verification of parameters rather than hyperparameter tuning. Two computations are run in parallel on quantum computers, and three qubits are measured in the computational basis. For every measurement taking value 0 we, assign it 1, and for every measurement taking value 1, we assign it -1. We then average over all such measurements,  and rescale to obtain classification probabilities. For a given piece of data, we assign the class that has the highest probability from either of the two circuits, i.e. the circuit that is most certain, picks the class. 
 
 Both circuits use product encoding, with a rotation around the x-axis of the Bloch sphere.
 
@@ -778,17 +773,18 @@ R(\phi, \theta, \omega) = R_z(\omega)R_y(\theta)R_z(\phi) = \begin{pmatrix} e^{-
 \part{Software Implementation}
 We now have a chance to look at some code for quantum computing, and implement a genuinely novel example.
 \section{The Dataset}
-The dataset we're considering is the protac database, available \cite{10.1093/nar/gkaa807}. Our aim is to produce two relevant examples from this - classification and regression. 
+The dataset we're considering is the protac database, available \cite{10.1093/nar/gkaa807}. Our aim is to produce a relevant classification example from this. This is an example in drug discovery - protacs are a relatively new area of research and very little analysis has been undertaken in the literature. In particular, there are no papers predicting the DC50 values (the concentration of the protac required to denature a specific protein by 50\%). We will use the chemical properties of the compounds: Molecular Weight, Exact Mass, $\log P, \log S$, Heavy Atom Count, Ring Count, Hydrogen Bond Acceptor Count, Hydrogen Bond Donor Count, Rotatable Bond Count and	Topological Polar Surface Area to predict these values. However, regression is a task not well suited to current quantum computers, so we'll convert this problem to classification. We classify data as 0 if the DC50 value is below a certain threshold and 1 if it is above it. In this instance, we have chosen to take the threshold to be roughly the upper quartile - translating to roughly values of above 300nM.
 
 \begin{table}[htb]
-\begin{tabular}[scale=0.5]{lllllllllll}
-DC50 (nM) & Molecular Weight & Exact Mass & logP & logS  & Heavy Atom Count & Ring Count & Hydrogen Bond Acceptor Count & Hydrogen Bond Donor Count & Rotatable Bond Count & Topological Polar Surface Area \\
-96.9      & 991.015          & 990.3935   & 3.53 & -5.02 & 71               & 7          & 17                           & 4                         & 27                   & 267.43                         \\
-11.9      & 787.834          & 787.3078   & 3.25 & -5.04 & 58               & 8          & 14                           & 3                         & 14                   & 213.2                          \\
-276.5     & 1039.686         & 1038.376   & 4.25 & -5    & 72               & 8          & 17                           & 4                         & 19                   & 232.97                         \\
-6.3       & 912.965          & 912.3667   & 3.4  & -4.89 & 67               & 9          & 18                           & 3                         & 19                   & 253.14                         \\
-700       & 832.988          & 832.3479   & 3.56 & -4.58 & 60               & 7          & 13                           & 5                         & 15                   & 208.98                        
+\begin{tabular}[scale=0.5]{lllllll}
+DC50 (nM) & Molecular Weight & Exact Mass & logP & logS  & Heavy Atom Count & Ring Count  \\
+96.9      & 991.015          & 990.3935   & 3.53 & -5.02 & 71               & 7                                   \\
+11.9      & 787.834          & 787.3078   & 3.25 & -5.04 & 58               & 8                               \\
+276.5     & 1039.686         & 1038.376   & 4.25 & -5    & 72               & 8                               \\
+6.3       & 912.965          & 912.3667   & 3.4  & -4.89 & 67               & 9                                \\
+700       & 832.988          & 832.3479   & 3.56 & -4.58 & 60               & 7                                  
 \end{tabular}
+\caption{Subset of protac data}
 \end{table}
 
 \section{Classification}
@@ -849,7 +845,9 @@ def circuit15(params,x):
 The classifier in this case is simply a linear model with a sigmoid function. The sigmoid function returns a value between 0 and 1, so we take the model to classify 0 as the output $\sigma(y \cdot \bm{\beta}  + \beta_0 ) \le 0.5$.
 
 \begin{minted}{python}
-def classifier(var,x,circuitNum=5):
+# var - parameters for the RY gates
+# x - piece of input data
+def classifier(var,x):
 # Pick the quantum device we're running the circuit on.
     dev = qml.device("default.qubit", wires=x.size)
     circuit = qml.QNode(circuit15,dev)
@@ -862,7 +860,7 @@ def classifier(var,x,circuitNum=5):
     return sig
 \end{minted}
 
-Now for the optimisation. Since our circuit is composed of $R_y$ and CNOT gates, we can only optimise the $R_y$ gates. Hence we have 20 parameters (the angle of rotation about the y axis of the Bloch sphere) that we can optimise in the circuit, and 11 parameters corresponding to the linear combination of measurements.
+Now for the optimisation. Since our circuit is composed of $R_y$ and CNOT gates, we can only optimise the $R_y$ gates as CNOT gates. Hence we have 20 parameters (the angle of rotation about the y axis of the Bloch sphere) that we can optimise in the circuit, and 11 parameters corresponding to the linear combination of measurements.
 
 PennyLane provides a range of optimisers - some specifically NumPy optimisers that have been altered to work with quantum circuits, and some purely quantum options. We've chosen to use the Adam optimiser. The default option is to use back-propagation to compute derivatives, which is both space and time saving - but not possible on a quantum device. Thus, we have to use a simulator instead of a quantum computer. We could instead use the parameter-shift method, which works on all quantum computers, but also must incur an additional cost per data per shot. Note that the cost function we're using here is the squared loss function and not the log loss function because this appeared to give us better results. 
 
@@ -880,22 +878,12 @@ for it in range(19):
     var = opt.step(lambda v: cost(v, X_train_batch, y_train_batch,circuitNum), var)
 \end{minted}
 
-A very simple run of this circuit with a $4:1$ split of training:test data and no cross validation gives us an accuracy of 80\% and an f1 score of 0.095 on our test data. A simple implementation of a classical method
+A very simple run of this circuit with a $4:1$ split of training:test data and no cross validation gives us an accuracy of 80\% and an f1 score of 0.095 on our test data. A simple implementation of a classical method. 
+
+This example is available to run at: \url{https://github.com/jt667/protac}
 
 
-\section{Notes}
-This is a selection of observations from working with PennyLane.
-\begin{itemize}
-    \item When defining circuits via functions, you cannot specify the size of the circuit within the function variables. Consider the following circuit that should embed the data onto \textit{numWires} qubits, apply a Hadamard gate to each qubit and return the expected outcome of a measurement in the Z direction. 
-    \begin{minted}{python}
-    def circuit(x, numWires):
-        dev = qml.device("qubit.default", wires=numWires)
-        qml.templates.AngleEmbedding(x,wires=[i for i in range(numWires)])
-        qml.broadcast(qml.Hadamard,[i for i in range(numWires)], "single")
-        return [qml.expval(qml.PauliZ(i)) for i in range(numWires)]
-    \end{minted}
-    
-\end{itemize}
+
 
 \clearpage
 \printbibliography
